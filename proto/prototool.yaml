@@ -1,0 +1,13 @@
+protoc:
+  version: 3.7.1
+
+lint:
+  group: uber2
+
+generate:
+  go_options:
+   import_path: test/proto
+  plugins:
+   - name: go
+     type: go
+     output: ../.gen/proto/go
