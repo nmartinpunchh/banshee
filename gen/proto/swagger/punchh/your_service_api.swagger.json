@@ -14,8 +14,45 @@
   "produces": [
     "application/json"
   ],
-  "paths": {},
+  "paths": {
+    "/v1/example/echo": {
+      "post": {
+        "summary": "Echo sends an echo request.",
+        "operationId": "Echo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/exampleEchoResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/exampleEchoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "YourServiceAPI"
+        ]
+      }
+    }
+  },
   "definitions": {
+    "exampleEchoRequest": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "description": "EchoRequest represents a request."
+    },
     "exampleEchoResponse": {
       "type": "object",
       "properties": {

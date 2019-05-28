@@ -3,6 +3,7 @@
 
 require 'google/protobuf'
 
+require 'google/api/annotations_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("punchh/your_service_api.proto", :syntax => :proto3) do
     add_message "example.EchoRequest" do

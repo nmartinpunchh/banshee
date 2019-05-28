@@ -9,12 +9,12 @@ import "google/api/annotations.proto";
 // YourServiceAPI sends a echo request.
 service YourServiceAPI {
   // Echo sends an echo request.
-  rpc Echo(EchoRequest) returns (EchoResponse){
-  	option (google.api.http) = {
-		post: "/v1/example/echo"
-		body: "*"
-	};
-  };
+  rpc Echo(EchoRequest) returns (EchoResponse) {
+    option (google.api.http) = {
+      post: "/v1/example/echo"
+      body: "*"
+    };
+  }
 }
 
 // EchoRequest represents a request.
@@ -26,4 +26,3 @@ message EchoRequest {
 message EchoResponse {
   string value = 1;
 }
-
