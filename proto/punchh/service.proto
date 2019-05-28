@@ -1,17 +1,33 @@
 syntax = "proto3";
 
-import "google/api/annotations.proto";
-
 package example;
+
+option go_package = "examplepb";
+
+// import "google/api/annotations.proto";
+
+// StringMessage represents a message.
 message StringMessage {
   string value = 1;
 }
 
-service YourService {
-  rpc Echo(StringMessage) returns (StringMessage) {
-    option (google.api.http) = {
-      post: "/v1/example/echo"
-      body: "*"
-    };
-  }
-}
+ service YourService {
+   rpc Echo(StringMessage) returns (StringMessage) { };
+   }
+ }
+ 
+// service YourService {
+
+//   rpc Echo(StringMessage) returns (StringMessage) {
+
+//     option (google.api.http) = {
+
+//       post: "/v1/example/echo"
+
+//       body: "*"
+
+//     };
+
+//   }
+
+// }
