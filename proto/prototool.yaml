@@ -16,7 +16,16 @@ lint:
 generate:
   go_options:
    import_path: github.com/nmartinpunchh/testSwagger/master/proto
+   extra_modifiers:
+      google/api/annotations.proto: google.golang.org/genproto/googleapis/api/annotations
+      google/api/http.proto: google.golang.org/genproto/googleapis/api/annotations
   plugins:
    - name: go
      type: go
-     output: ../.gen/proto/go
+     flags: plugins=grpc
+     output: ../gen/proto/go
+   - name: swagger
+     type: go
+     output: ../gen/proto/swagger
+   - name: ruby
+     output: ../gen/proto/ruby
