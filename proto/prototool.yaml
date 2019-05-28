@@ -1,5 +1,7 @@
 protoc:
   version: 3.7.1
+  includes:
+    - ../vendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis
 
 lint:
   group: uber2
