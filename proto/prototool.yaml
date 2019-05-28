@@ -1,7 +1,10 @@
 protoc:
   version: 3.7.1
   includes:
-    - ../vendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis
+    - ../../vendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis
+
+excludes:
+  - vendor/
 
 lint:
   group: uber2
@@ -19,8 +22,8 @@ generate:
   go_options:
    import_path: github.com/nmartinpunchh/testSwagger/master/proto
    extra_modifiers:
-      google/api/annotations.proto: google.golang.org/genproto/googleapis/api/annotations
-      google/api/http.proto: google.golang.org/genproto/googleapis/api/annotations
+     google/api/annotations.proto: google.golang.org/genproto/googleapis/api/annotations
+     google/api/http.proto: google.golang.org/genproto/googleapis/api/annotations
   plugins:
    - name: go
      type: go
