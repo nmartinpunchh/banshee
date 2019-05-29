@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package example;
+
+option go_package = "examplepb";
+
+import "google/api/annotations.proto";
+
+// WorkflowAPI ...
+service WorkflowAPI{
+  // CreateWorkflow creates a workflwo
+  rpc CreateWorkflow(CreateWorkflowRequest) returns (EchoResponse) {
+    option (google.api.http) = {
+      post: "/v1/example/echo"
+      body: "*"
+    };
+  }
+}
+
+// CreateWorkflowRequest represents a workflow requests
+message CreateWorkflowRequest{
+  string value = 1;
+}
+
+// EchoResponse represents a response.
+message EchoResponse {
+  string value = 1;
+}
+
+// Statement ...
+message Statement{
+  string value = 1;
+}
+
+// Sequence ...
+message Sequence{
+  repeated Statements = 1;
+}
+
+// Parallel ...
+message Parallel{
+  repeated Statements = 1;
+}
+
+// ActivityInvocation ...
+message ActivityInvocation{
+  string Name = 1;
+  repeated string Arguments = 2;
+  string Result = 2;
+}
