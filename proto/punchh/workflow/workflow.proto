@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package workflow;
+
+option go_package = "workflowpb";
+
+// Workflow is the base object of a workflow.
+message Workflow {
+  Statement root = 1;
+  // Variables map[string]string
+
+}
+
+// Statement ...
+message Statement {
+  ActivityInvocation activity_invocation = 1;
+  Sequence sequence = 2;
+  Parallel parallel = 3;
+}
+
+// Sequence ...
+message Sequence {
+  repeated Statement statements = 1;
+}
+
+// Parallel ...
+message Parallel {
+  repeated Statement statements = 1;
+}
+
+// ActivityInvocation ...
+message ActivityInvocation {
+  string name = 1;
+  repeated string arguments = 2;
+  string result = 3;
+}

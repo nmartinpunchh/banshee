@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package workflowapi;
+
+option go_package = "workflowapipb";
+
+import "google/api/annotations.proto";
+import "punchh/workflow/workflow.proto";
+
+// WorkflowAPI ...
+service WorkflowAPI {
+  // CreateWorkflow creates a workflow.
+  rpc CreateWorkflow(CreateWorkflowRequest) returns (CreateWorkflowResponse) {
+    option (google.api.http) = {
+      post: "/v1/example/echo"
+      body: "*"
+    };
+  }
+}
+
+// CreateWorkflowRequest represents a workflow requests
+message CreateWorkflowRequest {
+  workflow.Workflow workflow = 1;
+}
+
+// EchoResponse represents a response.
+message CreateWorkflowResponse {
+  workflow.Workflow workflow = 1;
+}
