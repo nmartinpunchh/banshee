@@ -28,9 +28,9 @@ generate:
    - name: go
      type: go
      flags: plugins=grpc
-     output: ../gen/proto/go
+     output: ../pb
    - name: swagger
      type: go
-     output: ../gen/proto/swagger
+     output: ../pb
    - name: ruby
-     output: ../gen/proto/ruby
+     output: ../pb

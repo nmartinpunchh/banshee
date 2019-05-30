@@ -7,7 +7,7 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
-	workflow "github.com/nmartinpunchh/testSwagger/master/gen/proto/go/punchh/workflow"
+	workflow "github.com/nmartinpunchh/testSwagger/master/pb/punchh/workflow"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
