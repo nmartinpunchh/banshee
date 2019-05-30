@@ -36,6 +36,12 @@ type Parallel struct {
 type ActivityInvocation struct {
 	gorm.Model
 	Name      string
-	Arguments []string
+	Arguments []*Argument
 	Result    string
+}
+
+// Argument ..
+type Argument struct {
+	gorm.Model
+	Arguments string
 }

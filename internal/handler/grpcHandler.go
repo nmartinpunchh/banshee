@@ -1,20 +1,30 @@
-package main
+package handler
 
-import "context"
+import (
+	"context"
 
-// GrpcService represents the grpc service
-type GrpcService struct {
+	workflowpb "github.com/nmartinpunchh/banshee/pb/punchh/workflow"
+	workflowapipb "github.com/nmartinpunchh/banshee/pb/punchh/workflowapi"
+)
+
+// GrpcHandler represents the grpc service
+type GrpcHandler struct {
 	Repository Repository.IRepository
 }
 
 // CreateWorkflow ...
-func (s *GrpcService) CreateWorkflow(ctx context.Context, req *CreateWorkflowRequest) (*CreateWorkflowResponse, error) {
+func (s *GrpcHandler) CreateWorkflow(ctx context.Context, req *workflowapipb.CreateWorkflowRequest) (*workflowapipb.CreateWorkflowResponse, error) {
 	workflows, err := s.Repository.GetAll()
 	if err != nil {
 		return nil, err
 	}
 
 	//TODO: Use automapper to map the domain back to the dto
-	return
+	wfr := &workflowapipb.CreateWorkflowResponse{
+		Workflow: &workflowpb.Workflow{
+			Root: &workflowpb.Statement{},
+		},
+	}
+	return wfr, nil
 
 }

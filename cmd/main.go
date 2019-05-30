@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/nmartinpunchh/banshee/internal/service"
+)
 
 func main() {
-	fmt.Println("vim-go")
+	log.Println("Running GRPC Server")
+	if err := service.Run(); err != nil {
+		panic(err)
+	}
 }
