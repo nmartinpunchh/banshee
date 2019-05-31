@@ -20,7 +20,7 @@ lint:
 
 generate:
   go_options:
-   import_path: github.com/nmartinpunchh/banshee/master/proto
+   import_path: github.com/nmartinpunchh/banshee/proto
    extra_modifiers:
      google/api/annotations.proto: google.golang.org/genproto/googleapis/api/annotations
      google/api/http.proto: google.golang.org/genproto/googleapis/api/annotations
