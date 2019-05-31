@@ -14,6 +14,7 @@ import (
 // IRepository ..
 type IRepository interface {
 	GetAll() ([]*models.Workflow, error)
+	Create(*models.Workflow) (*models.Workflow, error)
 }
 
 // WorkflowRepository ..
@@ -24,13 +25,25 @@ type WorkflowRepository struct {
 
 // GetAll gets all
 func (h *WorkflowRepository) GetAll() ([]*models.Workflow, error) {
-	var hellos []*models.Workflow
-	if err := h.db.Find(&hellos).Error; err != nil {
+	var workflows []*models.Workflow
+	if err := h.db.Find(&workflows).Error; err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	return hellos, nil
+	return workflows, nil
+
+}
+
+// Create creates a workflow
+func (h *WorkflowRepository) Create(*models.Workflow) (*models.Workflow, error) {
+	var workflow *models.Workflow
+	if err := h.db.Create(&workflow).Error; err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	return workflow, nil
 
 }
 

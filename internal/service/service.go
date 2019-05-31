@@ -23,6 +23,7 @@ func Run() error {
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Printf("Starting gRPC service on %s", env.Address)
 
 	s := grpc.NewServer()
 	workflowapipb.RegisterWorkflowAPIServer(s, grpcHandler)
