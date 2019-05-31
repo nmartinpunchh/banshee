@@ -4,26 +4,32 @@ package workflowapi;
 
 option go_package = "workflowapipb";
 
-import "google/api/annotations.proto";
 import "punchh/workflow/workflow.proto";
 
 // WorkflowAPI ...
 service WorkflowAPI {
   // CreateWorkflow creates a workflow.
-  rpc CreateWorkflow(CreateWorkflowRequest) returns (CreateWorkflowResponse) {
-    option (google.api.http) = {
-      post: "/v1/example/echo"
-      body: "*"
-    };
-  }
+  rpc CreateWorkflow(CreateWorkflowRequest) returns (CreateWorkflowResponse);
+  // ReadWorkflow reads a workflow by id.
+  rpc ReadWorkflow(ReadWorkflowRequest) returns (ReadWorkflowResponse);
 }
 
-// CreateWorkflowRequest represents a workflow requests
+// CreateWorkflowRequest represents a create workflow requests
 message CreateWorkflowRequest {
   workflow.Workflow workflow = 1;
 }
 
-// EchoResponse represents a response.
+// CreateWorkflowResponse represents a response.
 message CreateWorkflowResponse {
+  workflow.Workflow workflow = 1;
+}
+
+// ReadWorkflowRequest represents a read workflow requests
+message ReadWorkflowRequest {
+  int64 id = 1;
+}
+
+// ReadWorkflowResponse represents a response.
+message ReadWorkflowResponse {
   workflow.Workflow workflow = 1;
 }

@@ -3,13 +3,14 @@ package handler
 import (
 	"context"
 
+	"github.com/nmartinpunchh/banshee/internal/repository"
 	workflowpb "github.com/nmartinpunchh/banshee/pb/punchh/workflow"
 	workflowapipb "github.com/nmartinpunchh/banshee/pb/punchh/workflowapi"
 )
 
 // GrpcHandler represents the grpc service
 type GrpcHandler struct {
-	Repository Repository.IRepository
+	Repository repository.IRepository
 }
 
 // CreateWorkflow ...
@@ -18,6 +19,9 @@ func (s *GrpcHandler) CreateWorkflow(ctx context.Context, req *workflowapipb.Cre
 	if err != nil {
 		return nil, err
 	}
+
+	// temp
+	_ = workflows
 
 	//TODO: Use automapper to map the domain back to the dto
 	wfr := &workflowapipb.CreateWorkflowResponse{

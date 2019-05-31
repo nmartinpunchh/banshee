@@ -14,35 +14,7 @@
   "produces": [
     "application/json"
   ],
-  "paths": {
-    "/v1/example/echo": {
-      "post": {
-        "summary": "CreateWorkflow creates a workflow.",
-        "operationId": "CreateWorkflow",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/workflowapiCreateWorkflowResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/workflowapiCreateWorkflowRequest"
-            }
-          }
-        ],
-        "tags": [
-          "WorkflowAPI"
-        ]
-      }
-    }
-  },
+  "paths": {},
   "definitions": {
     "workflowActivityInvocation": {
       "type": "object",
@@ -110,15 +82,6 @@
       },
       "description": "Workflow is the base object of a workflow."
     },
-    "workflowapiCreateWorkflowRequest": {
-      "type": "object",
-      "properties": {
-        "workflow": {
-          "$ref": "#/definitions/workflowWorkflow"
-        }
-      },
-      "title": "CreateWorkflowRequest represents a workflow requests"
-    },
     "workflowapiCreateWorkflowResponse": {
       "type": "object",
       "properties": {
@@ -126,7 +89,16 @@
           "$ref": "#/definitions/workflowWorkflow"
         }
       },
-      "description": "EchoResponse represents a response."
+      "description": "CreateWorkflowResponse represents a response."
+    },
+    "workflowapiReadWorkflowResponse": {
+      "type": "object",
+      "properties": {
+        "workflow": {
+          "$ref": "#/definitions/workflowWorkflow"
+        }
+      },
+      "description": "ReadWorkflowResponse represents a response."
     }
   }
 }

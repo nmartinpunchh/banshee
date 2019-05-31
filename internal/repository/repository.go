@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"log"
+
 	"github.com/jinzhu/gorm"
 	"github.com/nmartinpunchh/banshee/configs"
 	"github.com/nmartinpunchh/banshee/internal/models"
@@ -24,16 +26,22 @@ type WorkflowRepository struct {
 func (h *WorkflowRepository) GetAll() ([]*models.Workflow, error) {
 	var hellos []*models.Workflow
 	if err := h.db.Find(&hellos).Error; err != nil {
-		log.Error(err)
+		log.Println(err)
+		return nil, err
 	}
+
+	return hellos, nil
 
 }
 
 // Init initializes the db and auto migrates the models
 func Init(e *configs.Env) *WorkflowRepository {
-	db, err := gorm.Open("mysql", e.DbConnectionString)
+	connStr := "root:password@tcp(localhost)/punchh"
+	// log.Println(e.DbConnectionString)
+	db, err := gorm.Open("mysql", connStr)
+	db.LogMode(true)
 	if err != nil {
-		panic("failed to connect database")
+		log.Panicf("failed to connect database %s", err.Error())
 	}
 	defer db.Close()
 

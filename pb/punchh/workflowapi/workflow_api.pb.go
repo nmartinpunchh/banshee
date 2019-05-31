@@ -8,7 +8,6 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	workflow "github.com/nmartinpunchh/banshee/master/pb/punchh/workflow"
-	_ "google.golang.org/genproto/googleapis/api/annotations"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -26,7 +25,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// CreateWorkflowRequest represents a workflow requests
+// CreateWorkflowRequest represents a create workflow requests
 type CreateWorkflowRequest struct {
 	Workflow             *workflow.Workflow `protobuf:"bytes,1,opt,name=workflow,proto3" json:"workflow,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
@@ -66,7 +65,7 @@ func (m *CreateWorkflowRequest) GetWorkflow() *workflow.Workflow {
 	return nil
 }
 
-// EchoResponse represents a response.
+// CreateWorkflowResponse represents a response.
 type CreateWorkflowResponse struct {
 	Workflow             *workflow.Workflow `protobuf:"bytes,1,opt,name=workflow,proto3" json:"workflow,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
@@ -106,9 +105,91 @@ func (m *CreateWorkflowResponse) GetWorkflow() *workflow.Workflow {
 	return nil
 }
 
+// ReadWorkflowRequest represents a read workflow requests
+type ReadWorkflowRequest struct {
+	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReadWorkflowRequest) Reset()         { *m = ReadWorkflowRequest{} }
+func (m *ReadWorkflowRequest) String() string { return proto.CompactTextString(m) }
+func (*ReadWorkflowRequest) ProtoMessage()    {}
+func (*ReadWorkflowRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_b7198b79946a0984, []int{2}
+}
+
+func (m *ReadWorkflowRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadWorkflowRequest.Unmarshal(m, b)
+}
+func (m *ReadWorkflowRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadWorkflowRequest.Marshal(b, m, deterministic)
+}
+func (m *ReadWorkflowRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadWorkflowRequest.Merge(m, src)
+}
+func (m *ReadWorkflowRequest) XXX_Size() int {
+	return xxx_messageInfo_ReadWorkflowRequest.Size(m)
+}
+func (m *ReadWorkflowRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadWorkflowRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadWorkflowRequest proto.InternalMessageInfo
+
+func (m *ReadWorkflowRequest) GetId() int64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+// ReadWorkflowResponse represents a response.
+type ReadWorkflowResponse struct {
+	Workflow             *workflow.Workflow `protobuf:"bytes,1,opt,name=workflow,proto3" json:"workflow,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
+}
+
+func (m *ReadWorkflowResponse) Reset()         { *m = ReadWorkflowResponse{} }
+func (m *ReadWorkflowResponse) String() string { return proto.CompactTextString(m) }
+func (*ReadWorkflowResponse) ProtoMessage()    {}
+func (*ReadWorkflowResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_b7198b79946a0984, []int{3}
+}
+
+func (m *ReadWorkflowResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadWorkflowResponse.Unmarshal(m, b)
+}
+func (m *ReadWorkflowResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadWorkflowResponse.Marshal(b, m, deterministic)
+}
+func (m *ReadWorkflowResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadWorkflowResponse.Merge(m, src)
+}
+func (m *ReadWorkflowResponse) XXX_Size() int {
+	return xxx_messageInfo_ReadWorkflowResponse.Size(m)
+}
+func (m *ReadWorkflowResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadWorkflowResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadWorkflowResponse proto.InternalMessageInfo
+
+func (m *ReadWorkflowResponse) GetWorkflow() *workflow.Workflow {
+	if m != nil {
+		return m.Workflow
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*CreateWorkflowRequest)(nil), "workflowapi.CreateWorkflowRequest")
 	proto.RegisterType((*CreateWorkflowResponse)(nil), "workflowapi.CreateWorkflowResponse")
+	proto.RegisterType((*ReadWorkflowRequest)(nil), "workflowapi.ReadWorkflowRequest")
+	proto.RegisterType((*ReadWorkflowResponse)(nil), "workflowapi.ReadWorkflowResponse")
 }
 
 func init() {
@@ -116,21 +197,21 @@ func init() {
 }
 
 var fileDescriptor_b7198b79946a0984 = []byte{
-	// 222 bytes of a gzipped FileDescriptorProto
+	// 217 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x2d, 0x28, 0xcd, 0x4b,
 	0xce, 0xc8, 0xd0, 0x2f, 0xcf, 0x2f, 0xca, 0x4e, 0xcb, 0xc9, 0x2f, 0x4f, 0x2c, 0xc8, 0x84, 0xb3,
-	0xe3, 0x13, 0x0b, 0x32, 0xf5, 0x0a, 0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0xb8, 0x91, 0xe4, 0xa5, 0x64,
-	0xd2, 0xf3, 0xf3, 0xd3, 0x73, 0x52, 0xf5, 0x41, 0x6a, 0x13, 0xf3, 0xf2, 0xf2, 0x4b, 0x12, 0x4b,
-	0x32, 0xf3, 0xf3, 0x8a, 0x21, 0x4a, 0xa5, 0xe4, 0xd0, 0x4c, 0x84, 0x33, 0x20, 0xf2, 0x4a, 0xee,
-	0x5c, 0xa2, 0xce, 0x45, 0xa9, 0x89, 0x25, 0xa9, 0xe1, 0x50, 0xf1, 0xa0, 0xd4, 0xc2, 0xd2, 0xd4,
-	0xe2, 0x12, 0x21, 0x3d, 0x2e, 0x0e, 0x98, 0x52, 0x09, 0x46, 0x05, 0x46, 0x0d, 0x6e, 0x23, 0x21,
-	0x3d, 0xb8, 0x5e, 0xb8, 0x62, 0xb8, 0x1a, 0x25, 0x0f, 0x2e, 0x31, 0x74, 0x83, 0x8a, 0x0b, 0xf2,
-	0xf3, 0x8a, 0x53, 0x49, 0x35, 0xc9, 0xa8, 0x95, 0x91, 0x8b, 0x1b, 0x26, 0xec, 0x18, 0xe0, 0x29,
-	0x54, 0xc6, 0xc5, 0x87, 0x6a, 0xb2, 0x90, 0x92, 0x1e, 0x52, 0x00, 0xe8, 0x61, 0x75, 0xbf, 0x94,
-	0x32, 0x5e, 0x35, 0x10, 0xa7, 0x29, 0x49, 0x37, 0x5d, 0x7e, 0x32, 0x99, 0x49, 0x54, 0x49, 0x40,
-	0xbf, 0xcc, 0x50, 0x3f, 0xb5, 0x22, 0x31, 0xb7, 0x20, 0x27, 0x55, 0x3f, 0x35, 0x39, 0x23, 0xdf,
-	0x8a, 0x51, 0xcb, 0x89, 0x3f, 0x8a, 0x17, 0xc9, 0x88, 0x82, 0xa4, 0x24, 0x36, 0x70, 0x90, 0x19,
-	0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0x8a, 0x2b, 0xd9, 0x6d, 0xa6, 0x01, 0x00, 0x00,
+	0xe3, 0x13, 0x0b, 0x32, 0xf5, 0x0a, 0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0xb8, 0x91, 0xe4, 0xa5, 0xe4,
+	0xd0, 0xf4, 0xc0, 0x19, 0x10, 0xc5, 0x4a, 0xee, 0x5c, 0xa2, 0xce, 0x45, 0xa9, 0x89, 0x25, 0xa9,
+	0xe1, 0x50, 0xf1, 0xa0, 0xd4, 0xc2, 0xd2, 0xd4, 0xe2, 0x12, 0x21, 0x3d, 0x2e, 0x0e, 0x98, 0x52,
+	0x09, 0x46, 0x05, 0x46, 0x0d, 0x6e, 0x23, 0x21, 0x3d, 0xb8, 0x5e, 0xb8, 0x62, 0xb8, 0x1a, 0x25,
+	0x0f, 0x2e, 0x31, 0x74, 0x83, 0x8a, 0x0b, 0xf2, 0xf3, 0x8a, 0x53, 0x49, 0x36, 0x49, 0x95, 0x4b,
+	0x38, 0x28, 0x35, 0x31, 0x05, 0xdd, 0x41, 0x7c, 0x5c, 0x4c, 0x99, 0x29, 0x60, 0x03, 0x98, 0x83,
+	0x98, 0x32, 0x53, 0x94, 0xdc, 0xb8, 0x44, 0x50, 0x95, 0x91, 0x67, 0x9d, 0xd1, 0x5e, 0x46, 0x2e,
+	0x6e, 0x98, 0xb0, 0x63, 0x80, 0xa7, 0x50, 0x24, 0x17, 0x1f, 0xaa, 0x47, 0x84, 0x94, 0xf4, 0x90,
+	0x42, 0x54, 0x0f, 0x6b, 0x70, 0x49, 0x29, 0xe3, 0x55, 0x03, 0x75, 0x5a, 0x30, 0x17, 0x0f, 0xb2,
+	0x93, 0x85, 0x14, 0x50, 0x34, 0x61, 0xf1, 0xb4, 0x94, 0x22, 0x1e, 0x15, 0x10, 0x43, 0x9d, 0xf8,
+	0xa3, 0x78, 0x91, 0xd4, 0x14, 0x24, 0x25, 0xb1, 0x81, 0x63, 0xd6, 0x18, 0x10, 0x00, 0x00, 0xff,
+	0xff, 0xd7, 0xe4, 0x78, 0x4a, 0x2f, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -147,6 +228,8 @@ const _ = grpc.SupportPackageIsVersion4
 type WorkflowAPIClient interface {
 	// CreateWorkflow creates a workflow.
 	CreateWorkflow(ctx context.Context, in *CreateWorkflowRequest, opts ...grpc.CallOption) (*CreateWorkflowResponse, error)
+	// ReadWorkflow reads a workflow by id.
+	ReadWorkflow(ctx context.Context, in *ReadWorkflowRequest, opts ...grpc.CallOption) (*ReadWorkflowResponse, error)
 }
 
 type workflowAPIClient struct {
@@ -166,10 +249,21 @@ func (c *workflowAPIClient) CreateWorkflow(ctx context.Context, in *CreateWorkfl
 	return out, nil
 }
 
+func (c *workflowAPIClient) ReadWorkflow(ctx context.Context, in *ReadWorkflowRequest, opts ...grpc.CallOption) (*ReadWorkflowResponse, error) {
+	out := new(ReadWorkflowResponse)
+	err := c.cc.Invoke(ctx, "/workflowapi.WorkflowAPI/ReadWorkflow", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WorkflowAPIServer is the server API for WorkflowAPI service.
 type WorkflowAPIServer interface {
 	// CreateWorkflow creates a workflow.
 	CreateWorkflow(context.Context, *CreateWorkflowRequest) (*CreateWorkflowResponse, error)
+	// ReadWorkflow reads a workflow by id.
+	ReadWorkflow(context.Context, *ReadWorkflowRequest) (*ReadWorkflowResponse, error)
 }
 
 // UnimplementedWorkflowAPIServer can be embedded to have forward compatible implementations.
@@ -178,6 +272,9 @@ type UnimplementedWorkflowAPIServer struct {
 
 func (*UnimplementedWorkflowAPIServer) CreateWorkflow(ctx context.Context, req *CreateWorkflowRequest) (*CreateWorkflowResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateWorkflow not implemented")
+}
+func (*UnimplementedWorkflowAPIServer) ReadWorkflow(ctx context.Context, req *ReadWorkflowRequest) (*ReadWorkflowResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReadWorkflow not implemented")
 }
 
 func RegisterWorkflowAPIServer(s *grpc.Server, srv WorkflowAPIServer) {
@@ -202,6 +299,24 @@ func _WorkflowAPI_CreateWorkflow_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WorkflowAPI_ReadWorkflow_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadWorkflowRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WorkflowAPIServer).ReadWorkflow(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/workflowapi.WorkflowAPI/ReadWorkflow",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WorkflowAPIServer).ReadWorkflow(ctx, req.(*ReadWorkflowRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _WorkflowAPI_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "workflowapi.WorkflowAPI",
 	HandlerType: (*WorkflowAPIServer)(nil),
@@ -209,6 +324,10 @@ var _WorkflowAPI_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateWorkflow",
 			Handler:    _WorkflowAPI_CreateWorkflow_Handler,
+		},
+		{
+			MethodName: "ReadWorkflow",
+			Handler:    _WorkflowAPI_ReadWorkflow_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
