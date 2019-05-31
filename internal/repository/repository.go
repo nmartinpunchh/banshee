@@ -53,10 +53,18 @@ func Init(e *configs.Env) *WorkflowRepository {
 	// log.Println(e.DbConnectionString)
 	db, err := gorm.Open("mysql", connStr)
 	db.LogMode(true)
+
 	if err != nil {
 		log.Panicf("failed to connect database %s", err.Error())
 	}
-	defer db.Close()
+
+	defer func() {
+		log.Println("closing")
+		err := db.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
 
 	// Migrate the schema
 	db.AutoMigrate(&models.Statement{}, &models.Sequence{}, &models.Parallel{}, &models.ActivityInvocation{}, &models.Workflow{})

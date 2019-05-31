@@ -63,8 +63,10 @@ func (s *GrpcHandler) ReadWorkflow(ctx context.Context, req *workflowapipb.ReadW
 		Workflow: &workflowpb.Workflow{
 			Root: &workflowpb.Statement{
 				ActivityInvocation: &workflowpb.ActivityInvocation{
-					Name:   workflows[0].Root.Activity.Name,
-					Result: workflows[0].Root.Activity.Result,
+					// Name:   workflows[0].Root.Activity.Name,
+					// Result: workflows[0].Root.Activity.Result,
+					Name:   "testname",
+					Result: "testResult",
 				},
 			},
 		},
