@@ -10,7 +10,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :workflow, :message, 1, "workflow.Workflow"
     end
     add_message "workflowapi.CreateWorkflowResponse" do
-      optional :workflow, :message, 1, "workflow.Workflow"
+      optional :id, :int64, 1
     end
     add_message "workflowapi.ReadWorkflowRequest" do
       optional :id, :int64, 1

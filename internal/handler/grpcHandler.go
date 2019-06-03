@@ -2,8 +2,9 @@ package handler
 
 import (
 	"context"
+	"log"
 
-	"github.com/nmartinpunchh/banshee/internal/models"
+	"github.com/gogo/protobuf/jsonpb"
 	"github.com/nmartinpunchh/banshee/internal/repository"
 	workflowpb "github.com/nmartinpunchh/banshee/pb/punchh/workflow"
 	workflowapipb "github.com/nmartinpunchh/banshee/pb/punchh/workflowapi"
@@ -18,32 +19,33 @@ type GrpcHandler struct {
 func (s *GrpcHandler) CreateWorkflow(ctx context.Context, req *workflowapipb.CreateWorkflowRequest) (*workflowapipb.CreateWorkflowResponse, error) {
 	//TODO: Use automapper to map the pb to model
 
-	w := &models.Workflow{
-		Root: models.Statement{
-			Activity: &models.ActivityInvocation{
-				Name:      req.Workflow.Root.ActivityInvocation.Name,
-				Arguments: []*models.Argument{},
-				// Arguments: []*models.Argument{
-				// 	Arguments: req.Workflow.Root.ActivityInvocation.Arguments[0],
-				// },
-				Result: req.Workflow.Root.ActivityInvocation.Result,
-			},
-			Sequence: &models.Sequence{},
-			Parallel: &models.Parallel{},
-		},
+	m := jsonpb.Marshaler{}
+	pstr, e := m.MarshalToString(req)
+	if e != nil {
+		log.Println(e)
 	}
+	log.Println(pstr)
 
-	workflow, err := s.Repository.Create(w)
-	//TODO temp
-	_ = workflow
-	if err != nil {
-		return nil, err
-	}
+	// w := &models.Workflow{
+	// 	Root: &models.Statement{
+	// 		ActivityInvocation: &models.ActivityInvocation{
+	// 			Arguments: []*models.Argument{&models.Argument{Argument: "kdfjdskfjdk"}},
+	// 			Name:      req.Workflow.Root.ActivityInvocation.Name,
+	// 			Result:    req.Workflow.Root.ActivityInvocation.Result,
+	// 		},
+	// 	},
+	// }
+	// _ = w
 
-	// temp
-	//TODO: Use automapper to map the model to pb
-	wfr := &workflowapipb.CreateWorkflowResponse{}
-	return wfr, nil
+	//
+	//
+	// ----
+	//
+	//
+
+	i := int64(8)
+	resp := &workflowapipb.CreateWorkflowResponse{Id: i}
+	return resp, nil
 
 }
 
@@ -65,8 +67,9 @@ func (s *GrpcHandler) ReadWorkflow(ctx context.Context, req *workflowapipb.ReadW
 				ActivityInvocation: &workflowpb.ActivityInvocation{
 					// Name:   workflows[0].Root.Activity.Name,
 					// Result: workflows[0].Root.Activity.Result,
-					Name:   "testname",
-					Result: "testResult",
+					Arguments: []string{"aa", "bb"},
+					Name:      "testname",
+					Result:    "testResult",
 				},
 			},
 		},

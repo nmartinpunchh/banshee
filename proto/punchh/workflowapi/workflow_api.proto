@@ -8,9 +8,9 @@ import "punchh/workflow/workflow.proto";
 
 // WorkflowAPI ...
 service WorkflowAPI {
-  // CreateWorkflow creates a workflow.
+  // CreateWorkflow ...
   rpc CreateWorkflow(CreateWorkflowRequest) returns (CreateWorkflowResponse);
-  // ReadWorkflow reads a workflow by id.
+  // ReadWorkflow ...
   rpc ReadWorkflow(ReadWorkflowRequest) returns (ReadWorkflowResponse);
 }
 
@@ -21,7 +21,7 @@ message CreateWorkflowRequest {
 
 // CreateWorkflowResponse represents a response.
 message CreateWorkflowResponse {
-  workflow.Workflow workflow = 1;
+  int64 id = 1;
 }
 
 // ReadWorkflowRequest represents a read workflow requests

@@ -85,8 +85,9 @@
     "workflowapiCreateWorkflowResponse": {
       "type": "object",
       "properties": {
-        "workflow": {
-          "$ref": "#/definitions/workflowWorkflow"
+        "id": {
+          "type": "string",
+          "format": "int64"
         }
       },
       "description": "CreateWorkflowResponse represents a response."

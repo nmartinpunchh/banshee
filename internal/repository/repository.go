@@ -20,13 +20,13 @@ type IRepository interface {
 // WorkflowRepository ..
 type WorkflowRepository struct {
 	Env *configs.Env
-	db  *gorm.DB
+	Db  *gorm.DB
 }
 
 // GetAll gets all
 func (h *WorkflowRepository) GetAll() ([]*models.Workflow, error) {
 	var workflows []*models.Workflow
-	if err := h.db.Find(&workflows).Error; err != nil {
+	if err := h.Db.Find(&workflows).Error; err != nil {
 		log.Println(err)
 		return nil, err
 	}
@@ -38,7 +38,7 @@ func (h *WorkflowRepository) GetAll() ([]*models.Workflow, error) {
 // Create creates a workflow
 func (h *WorkflowRepository) Create(*models.Workflow) (*models.Workflow, error) {
 	var workflow *models.Workflow
-	if err := h.db.Create(&workflow).Error; err != nil {
+	if err := h.Db.Create(&workflow).Error; err != nil {
 		log.Println(err)
 		return nil, err
 	}
@@ -58,20 +58,20 @@ func Init(e *configs.Env) *WorkflowRepository {
 		log.Panicf("failed to connect database %s", err.Error())
 	}
 
-	defer func() {
-		log.Println("closing")
-		err := db.Close()
-		if err != nil {
-			log.Fatal(err)
-		}
-	}()
+	// defer func() {
+	// 	log.Println("closing")
+	// 	err := db.Close()
+	// 	if err != nil {
+	// 		log.Fatal(err)
+	// 	}
+	// }()
 
 	// Migrate the schema
 	db.AutoMigrate(&models.Statement{}, &models.Sequence{}, &models.Parallel{}, &models.ActivityInvocation{}, &models.Workflow{})
 
 	hr := &WorkflowRepository{
 		Env: e,
-		db:  db,
+		Db:  db,
 	}
 
 	return hr

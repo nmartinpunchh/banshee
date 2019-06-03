@@ -7,8 +7,6 @@ option go_package = "workflowpb";
 // Workflow is the base object of a workflow.
 message Workflow {
   Statement root = 1;
-  // Variables map[string]string
-
 }
 
 // Statement ...
