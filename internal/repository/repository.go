@@ -14,7 +14,7 @@ import (
 // IRepository ..
 type IRepository interface {
 	GetAll() ([]*models.Workflow, error)
-	Create(*models.Workflow) (*models.Workflow, error)
+	Create(model *models.Workflow) (*models.Workflow, error)
 }
 
 // WorkflowRepository ..
@@ -36,14 +36,13 @@ func (h *WorkflowRepository) GetAll() ([]*models.Workflow, error) {
 }
 
 // Create creates a workflow
-func (h *WorkflowRepository) Create(*models.Workflow) (*models.Workflow, error) {
-	var workflow *models.Workflow
-	if err := h.Db.Create(&workflow).Error; err != nil {
+func (h *WorkflowRepository) Create(model *models.Workflow) (*models.Workflow, error) {
+	if err := h.Db.Create(&model.Root.ActivityInvocation).Error; err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	return workflow, nil
+	return model, nil
 
 }
 
@@ -67,7 +66,7 @@ func Init(e *configs.Env) *WorkflowRepository {
 	// }()
 
 	// Migrate the schema
-	db.AutoMigrate(&models.Statement{}, &models.Sequence{}, &models.Parallel{}, &models.ActivityInvocation{}, &models.Workflow{})
+	db.AutoMigrate(&models.Statement{}, &models.Sequence{}, &models.Parallel{}, &models.ActivityInvocation{}, &models.Workflow{}, &models.Argument{})
 
 	hr := &WorkflowRepository{
 		Env: e,

@@ -7,16 +7,20 @@ import "github.com/jinzhu/gorm"
 type Workflow struct {
 	//	Variables map[string]string
 	gorm.Model
-	Root *Statement
+	Root        *Statement
+	StatementID uint
 }
 
 // Statement is the building block of dsl workflow. A Statement can be a simple ActivityInvocation or it
 // could be a Sequence or Parallel.
 type Statement struct {
 	gorm.Model
-	ActivityInvocation *ActivityInvocation
-	Sequence           *Sequence
-	Parallel           *Parallel
+	ActivityInvocation   *ActivityInvocation
+	ActivityInvocationID uint
+	Sequence             *Sequence
+	SequenceID           uint
+	Parallel             *Parallel
+	ParallelID           uint
 }
 
 // Sequence consist of a collection of Statements that runs in sequential.

@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/gogo/protobuf/jsonpb"
+	"github.com/nmartinpunchh/banshee/internal/models"
 	"github.com/nmartinpunchh/banshee/internal/repository"
 	workflowpb "github.com/nmartinpunchh/banshee/pb/punchh/workflow"
 	workflowapipb "github.com/nmartinpunchh/banshee/pb/punchh/workflowapi"
@@ -26,25 +27,22 @@ func (s *GrpcHandler) CreateWorkflow(ctx context.Context, req *workflowapipb.Cre
 	}
 	log.Println(pstr)
 
-	// w := &models.Workflow{
-	// 	Root: &models.Statement{
-	// 		ActivityInvocation: &models.ActivityInvocation{
-	// 			Arguments: []*models.Argument{&models.Argument{Argument: "kdfjdskfjdk"}},
-	// 			Name:      req.Workflow.Root.ActivityInvocation.Name,
-	// 			Result:    req.Workflow.Root.ActivityInvocation.Result,
-	// 		},
-	// 	},
-	// }
-	// _ = w
+	w := &models.Workflow{
+		Root: &models.Statement{
+			ActivityInvocation: &models.ActivityInvocation{
+				Arguments: []*models.Argument{&models.Argument{Argument: "kdfjdskfjdk"}},
+				Name:      req.Workflow.Root.ActivityInvocation.Name,
+				Result:    req.Workflow.Root.ActivityInvocation.Result,
+			},
+		},
+	}
 
-	//
-	//
-	// ----
-	//
-	//
+	returnedW, err := s.Repository.Create(w)
+	if err != nil {
+		return nil, err
+	}
 
-	i := int64(8)
-	resp := &workflowapipb.CreateWorkflowResponse{Id: i}
+	resp := &workflowapipb.CreateWorkflowResponse{Id: int64(returnedW.ID)}
 	return resp, nil
 
 }
