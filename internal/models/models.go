@@ -2,6 +2,8 @@ package models
 
 import "github.com/jinzhu/gorm"
 
+// TODO Should all the models have Created, Updated, DeletedAt? Or just the base struct?
+
 // Workflow is the type used to express the workflow definition. Variables are a map of valuables. Variables can be
 // used as input to Activity.
 type Workflow struct {

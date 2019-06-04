@@ -28,6 +28,8 @@ func Run() error {
 	log.Printf("Starting gRPC service on %s", env.Address)
 
 	s := grpc.NewServer(
+		// https://github.com/grpc-ecosystem/go-grpc-middleware
+		// for existing middleware
 		grpc_middleware.WithUnaryServerChain(
 			grpc_recovery.UnaryServerInterceptor(),
 		),

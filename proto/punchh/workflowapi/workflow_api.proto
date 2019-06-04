@@ -12,6 +12,8 @@ service WorkflowAPI {
   rpc CreateWorkflow(CreateWorkflowRequest) returns (CreateWorkflowResponse);
   // ReadWorkflow ...
   rpc ReadWorkflow(ReadWorkflowRequest) returns (ReadWorkflowResponse);
+  // DeleteWorkflow ...
+  rpc DeleteWorkflow(DeleteWorkflowRequest) returns (DeleteWorkflowResponse);
 }
 
 // CreateWorkflowRequest represents a create workflow requests
@@ -32,4 +34,14 @@ message ReadWorkflowRequest {
 // ReadWorkflowResponse represents a response.
 message ReadWorkflowResponse {
   workflow.Workflow workflow = 1;
+}
+
+// DeleteWorkflowRequest represents a read workflow requests
+message DeleteWorkflowRequest {
+  int64 id = 1;
+}
+
+// DeleteWorkflowResponse represents a response.
+message DeleteWorkflowResponse {
+  int64 id = 1;
 }

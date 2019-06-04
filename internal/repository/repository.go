@@ -16,6 +16,7 @@ type IRepository interface {
 	GetAll() ([]*models.Workflow, error)
 	Create(model *models.Workflow) (*models.Workflow, error)
 	GetByID(id int) (*models.Workflow, error)
+	Delete(id int) (int, error)
 }
 
 // WorkflowRepository ..
@@ -60,6 +61,18 @@ func (h *WorkflowRepository) Create(model *models.Workflow) (*models.Workflow, e
 
 }
 
+// Delete deletes a workflow
+func (h *WorkflowRepository) Delete(id int) (int, error) {
+	model := models.Workflow{}
+	if err := h.Db.Delete(&model, id).Error; err != nil {
+		log.Println(err)
+		return 0, err
+	}
+
+	return id, nil
+
+}
+
 // Init initializes the db and auto migrates the models
 func Init(e *configs.Env) *WorkflowRepository {
 	// log.Println(e.DbConnectionString)
@@ -69,14 +82,6 @@ func Init(e *configs.Env) *WorkflowRepository {
 	if err != nil {
 		log.Panicf("failed to connect database %s", err.Error())
 	}
-
-	// defer func() {
-	// 	log.Println("closing")
-	// 	err := db.Close()
-	// 	if err != nil {
-	// 		log.Fatal(err)
-	// 	}
-	// }()
 
 	// Migrate the schema
 	db.AutoMigrate(&models.Statement{}, &models.Sequence{}, &models.Parallel{}, &models.ActivityInvocation{}, &models.Workflow{}, &models.Argument{})

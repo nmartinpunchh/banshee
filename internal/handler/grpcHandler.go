@@ -71,3 +71,18 @@ func (s *GrpcHandler) ReadWorkflow(ctx context.Context, req *workflowapipb.ReadW
 	return rfr, nil
 
 }
+
+// DeleteWorkflow ...
+func (s *GrpcHandler) DeleteWorkflow(ctx context.Context, req *workflowapipb.DeleteWorkflowRequest) (*workflowapipb.DeleteWorkflowResponse, error) {
+	reqID := int(req.Id)
+	respID, err := s.Repository.Delete(reqID)
+	if err != nil {
+		return nil, err
+	}
+
+	dwr := &workflowapipb.DeleteWorkflowResponse{
+		Id: int64(respID),
+	}
+	return dwr, nil
+
+}

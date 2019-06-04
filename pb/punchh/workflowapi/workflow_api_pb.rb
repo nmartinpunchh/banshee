@@ -18,6 +18,12 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "workflowapi.ReadWorkflowResponse" do
       optional :workflow, :message, 1, "workflow.Workflow"
     end
+    add_message "workflowapi.DeleteWorkflowRequest" do
+      optional :id, :int64, 1
+    end
+    add_message "workflowapi.DeleteWorkflowResponse" do
+      optional :id, :int64, 1
+    end
   end
 end
 
@@ -26,4 +32,6 @@ module Workflowapi
   CreateWorkflowResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("workflowapi.CreateWorkflowResponse").msgclass
   ReadWorkflowRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("workflowapi.ReadWorkflowRequest").msgclass
   ReadWorkflowResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("workflowapi.ReadWorkflowResponse").msgclass
+  DeleteWorkflowRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("workflowapi.DeleteWorkflowRequest").msgclass
+  DeleteWorkflowResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("workflowapi.DeleteWorkflowResponse").msgclass
 end
