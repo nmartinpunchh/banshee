@@ -54,6 +54,7 @@ func (s *GrpcHandler) ReadWorkflow(ctx context.Context, req *workflowapipb.ReadW
 	if err != nil {
 		return nil, err
 	}
+	log.Println(workflow)
 
 	//TODO: Use automapper to map the domain back to the pb
 	rfr := &workflowapipb.ReadWorkflowResponse{
