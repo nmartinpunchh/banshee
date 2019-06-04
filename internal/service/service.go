@@ -4,6 +4,8 @@ import (
 	"log"
 	"net"
 
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/nmartinpunchh/banshee/configs"
 	"github.com/nmartinpunchh/banshee/internal/handler"
 	"github.com/nmartinpunchh/banshee/internal/repository"
@@ -25,7 +27,14 @@ func Run() error {
 	}
 	log.Printf("Starting gRPC service on %s", env.Address)
 
-	s := grpc.NewServer()
+	s := grpc.NewServer(
+		grpc_middleware.WithUnaryServerChain(
+			grpc_recovery.UnaryServerInterceptor(),
+		),
+		grpc_middleware.WithStreamServerChain(
+			grpc_recovery.StreamServerInterceptor(),
+		),
+	)
 	workflowapipb.RegisterWorkflowAPIServer(s, grpcHandler)
 	return s.Serve(lis)
 
