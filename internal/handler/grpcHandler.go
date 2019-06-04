@@ -50,24 +50,19 @@ func (s *GrpcHandler) CreateWorkflow(ctx context.Context, req *workflowapipb.Cre
 // ReadWorkflow ...
 func (s *GrpcHandler) ReadWorkflow(ctx context.Context, req *workflowapipb.ReadWorkflowRequest) (*workflowapipb.ReadWorkflowResponse, error) {
 
-	workflows, err := s.Repository.GetAll()
+	workflow, err := s.Repository.GetByID(int(req.Id))
 	if err != nil {
 		return nil, err
 	}
-
-	// temp
-	_ = workflows
 
 	//TODO: Use automapper to map the domain back to the pb
 	rfr := &workflowapipb.ReadWorkflowResponse{
 		Workflow: &workflowpb.Workflow{
 			Root: &workflowpb.Statement{
 				ActivityInvocation: &workflowpb.ActivityInvocation{
-					// Name:   workflows[0].Root.Activity.Name,
-					// Result: workflows[0].Root.Activity.Result,
-					Arguments: []string{"aa", "bb"},
-					Name:      "testname",
-					Result:    "testResult",
+					Arguments: []string{workflow.Root.ActivityInvocation.Arguments[0].Argument},
+					Name:      workflow.Root.ActivityInvocation.Name,
+					Result:    workflow.Root.ActivityInvocation.Result,
 				},
 			},
 		},

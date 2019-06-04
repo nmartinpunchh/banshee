@@ -15,6 +15,7 @@ import (
 type IRepository interface {
 	GetAll() ([]*models.Workflow, error)
 	Create(model *models.Workflow) (*models.Workflow, error)
+	GetByID(id int) (*models.Workflow, error)
 }
 
 // WorkflowRepository ..
@@ -35,9 +36,22 @@ func (h *WorkflowRepository) GetAll() ([]*models.Workflow, error) {
 
 }
 
+// GetByID gets a workflow by ID
+func (h *WorkflowRepository) GetByID(id int) (*models.Workflow, error) {
+	workflow := &models.Workflow{}
+	log.Println(id)
+	if err := h.Db.Set("gorm:auto_preload", true).First(&workflow, id).Error; err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	return workflow, nil
+
+}
+
 // Create creates a workflow
 func (h *WorkflowRepository) Create(model *models.Workflow) (*models.Workflow, error) {
-	if err := h.Db.Create(&model.Root.ActivityInvocation).Error; err != nil {
+	if err := h.Db.Create(&model).Error; err != nil {
 		log.Println(err)
 		return nil, err
 	}
@@ -48,9 +62,8 @@ func (h *WorkflowRepository) Create(model *models.Workflow) (*models.Workflow, e
 
 // Init initializes the db and auto migrates the models
 func Init(e *configs.Env) *WorkflowRepository {
-	connStr := "root:password@tcp(localhost)/punchh"
 	// log.Println(e.DbConnectionString)
-	db, err := gorm.Open("mysql", connStr)
+	db, err := gorm.Open("mysql", e.DbConnectionString)
 	db.LogMode(true)
 
 	if err != nil {
