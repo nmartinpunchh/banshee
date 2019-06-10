@@ -6,6 +6,7 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"github.com/gogo/protobuf/jsonpb"
+	"github.com/nmartinpunchh/banshee/internal/mapper"
 	"github.com/nmartinpunchh/banshee/internal/models"
 	"github.com/nmartinpunchh/banshee/internal/repository"
 	workflowpb "github.com/nmartinpunchh/banshee/pb/punchh/workflow"
@@ -19,7 +20,6 @@ type GrpcHandler struct {
 
 // CreateWorkflow ...
 func (s *GrpcHandler) CreateWorkflow(ctx context.Context, req *workflowapipb.CreateWorkflowRequest) (*workflowapipb.CreateWorkflowResponse, error) {
-	//TODO: Use automapper to map the pb to model
 
 	m := jsonpb.Marshaler{}
 	pstr, e := m.MarshalToString(req)
@@ -27,16 +27,19 @@ func (s *GrpcHandler) CreateWorkflow(ctx context.Context, req *workflowapipb.Cre
 		log.Println(e)
 	}
 	log.Println(pstr)
+	w := &models.Workflow{}
 
-	w := &models.Workflow{
-		Root: &models.Statement{
-			ActivityInvocation: &models.ActivityInvocation{
-				Arguments: []*models.Argument{&models.Argument{Argument: "kdfjdskfjdk"}},
-				Name:      req.Workflow.Root.ActivityInvocation.Name,
-				Result:    req.Workflow.Root.ActivityInvocation.Result,
-			},
-		},
-	}
+	err = mapper.M.SourceTag
+
+	// w := &models.Workflow{
+	// 	Root: &models.Statement{
+	// 		ActivityInvocation: &models.ActivityInvocation{
+	// 			Arguments: []*models.Argument{&models.Argument{Argument: "kdfjdskfjdk"}},
+	// 			Name:      req.Workflow.Root.ActivityInvocation.Name,
+	// 			Result:    req.Workflow.Root.ActivityInvocation.Result,
+	// 		},
+	// 	},
+	// }
 
 	returnedW, err := s.Repository.Create(w)
 	if err != nil {

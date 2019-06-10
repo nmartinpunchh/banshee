@@ -84,7 +84,7 @@ func Init(e *configs.Env) *WorkflowRepository {
 	}
 
 	// Migrate the schema
-	db.AutoMigrate(&models.Statement{}, &models.Sequence{}, &models.Parallel{}, &models.ActivityInvocation{}, &models.Workflow{}, &models.Argument{})
+	db.AutoMigrate(&models.Statement{}, &models.Sequence{}, &models.Parallel{}, &models.ActivityInvocation{}, &models.Workflow{}, &models.Argument{}, &models.Journey{})
 
 	hr := &WorkflowRepository{
 		Env: e,
