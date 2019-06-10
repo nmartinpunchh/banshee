@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"log"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/jinzhu/gorm"
 	"github.com/nmartinpunchh/banshee/configs"

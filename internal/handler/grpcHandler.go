@@ -2,7 +2,8 @@ package handler
 
 import (
 	"context"
-	"log"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gogo/protobuf/jsonpb"
 	"github.com/nmartinpunchh/banshee/internal/models"

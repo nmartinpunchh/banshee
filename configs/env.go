@@ -1,7 +1,7 @@
 package configs
 
 import (
-	"log"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/kelseyhightower/envconfig"
 )
