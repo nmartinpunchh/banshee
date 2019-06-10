@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package journey;
+
+option go_package = "journeypb";
+
+import "google/protobuf/timestamp.proto";
+import "punchh/workflow/workflow.proto";
+
+// Journey ...
+message Journey {
+  google.protobuf.Timestamp start_time = 1;
+  google.protobuf.Timestamp end_time = 2;
+  Status status = 3;
+  string segment_id = 4;
+  int64 control_group_size = 5;
+  int64 guest_entry_limit = 6;
+  workflow.Workflow workflow = 7;
+}
+
+// Status ..
+enum Status {
+  STATUS_INVALID = 0;
+  STATUS_DRAFT = 1;
+  STATUS_LIVE = 2;
+  STATUS_DISABLED = 3;
+}

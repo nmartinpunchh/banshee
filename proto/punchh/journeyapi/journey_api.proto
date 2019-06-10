@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package journeyapi;
+
+option go_package = "journeyapipb";
+
+import "punchh/journey/journey.proto";
+
+// JourneyAPI ...
+service JourneyAPI {
+  // CreateJourney ...
+  rpc CreateJourney(CreateJourneyRequest) returns (CreateJourneyResponse);
+  // ReadJourney ...
+  rpc ReadJourney(ReadJourneyRequest) returns (ReadJourneyResponse);
+  // DeleteJourney ...
+  rpc DeleteJourney(DeleteJourneyRequest) returns (DeleteJourneyResponse);
+}
+
+// CreateJourneyRequest represents a create workflow requests
+message CreateJourneyRequest {
+  journey.Journey journey = 1;
+}
+
+// CreateJourneyResponse represents a response.
+message CreateJourneyResponse {
+  int64 id = 1;
+}
+
+// ReadJourneyRequest represents a read workflow requests
+message ReadJourneyRequest {
+  int64 id = 1;
+}
+
+// ReadJourneyResponse represents a response.
+message ReadJourneyResponse {
+  journey.Journey journey = 1;
+}
+
+// DeleteJourneyRequest represents a read workflow requests
+message DeleteJourneyRequest {
+  int64 id = 1;
+}
+
+// DeleteJourneyResponse represents a response.
+message DeleteJourneyResponse {
+  int64 id = 1;
+}
