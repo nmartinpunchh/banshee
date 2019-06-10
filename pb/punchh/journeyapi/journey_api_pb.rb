@@ -4,8 +4,27 @@
 require 'google/protobuf'
 
 require 'punchh/journey/journey_pb'
+require 'punchh/workflow/workflow_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("punchh/journeyapi/journey_api.proto", :syntax => :proto3) do
+    add_message "journeyapi.CreateWorkflowRequest" do
+      optional :workflow, :message, 1, "workflow.Workflow"
+    end
+    add_message "journeyapi.CreateWorkflowResponse" do
+      optional :id, :int64, 1
+    end
+    add_message "journeyapi.ReadWorkflowRequest" do
+      optional :id, :int64, 1
+    end
+    add_message "journeyapi.ReadWorkflowResponse" do
+      optional :workflow, :message, 1, "workflow.Workflow"
+    end
+    add_message "journeyapi.DeleteWorkflowRequest" do
+      optional :id, :int64, 1
+    end
+    add_message "journeyapi.DeleteWorkflowResponse" do
+      optional :id, :int64, 1
+    end
     add_message "journeyapi.CreateJourneyRequest" do
       optional :journey, :message, 1, "journey.Journey"
     end
@@ -28,6 +47,12 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
 end
 
 module Journeyapi
+  CreateWorkflowRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("journeyapi.CreateWorkflowRequest").msgclass
+  CreateWorkflowResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("journeyapi.CreateWorkflowResponse").msgclass
+  ReadWorkflowRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("journeyapi.ReadWorkflowRequest").msgclass
+  ReadWorkflowResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("journeyapi.ReadWorkflowResponse").msgclass
+  DeleteWorkflowRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("journeyapi.DeleteWorkflowRequest").msgclass
+  DeleteWorkflowResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("journeyapi.DeleteWorkflowResponse").msgclass
   CreateJourneyRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("journeyapi.CreateJourneyRequest").msgclass
   CreateJourneyResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("journeyapi.CreateJourneyResponse").msgclass
   ReadJourneyRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("journeyapi.ReadJourneyRequest").msgclass
