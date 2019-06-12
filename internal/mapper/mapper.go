@@ -1,11 +1,26 @@
 package mapper
 
 import (
-	mapper "github.com/nicolas-martin/go-automapper"
+	"github.com/nmartinpunchh/banshee/internal/models"
+	journeypb "github.com/nmartinpunchh/banshee/pb/punchh/journey"
+	mapper "github.com/nmartinpunchh/go-automapper"
+	log "github.com/sirupsen/logrus"
 )
 
-// M ..
-var M = mapper.Mapper{
+var journeyMapper = mapper.Mapper{
 	PanicOnIncompatibleTypes: false,
 	PanicOnMissingField:      false,
+}
+
+// JourneyPbToModel maps journeypb to a model
+func JourneyPbToModel(jpb *journeypb.Journey) *models.Journey {
+	mJourney := &models.Journey{}
+	ret := journeyMapper.Map(jpb, mJourney)
+	if len(ret.Errors) > 0 {
+		log.Println(ret.Errors)
+		return nil
+	}
+
+	return mJourney
+
 }

@@ -6,11 +6,10 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"github.com/gogo/protobuf/jsonpb"
-	"github.com/nmartinpunchh/banshee/internal/mapper"
 	"github.com/nmartinpunchh/banshee/internal/models"
 	"github.com/nmartinpunchh/banshee/internal/repository"
+	workflowapipb "github.com/nmartinpunchh/banshee/pb/punchh/journeyapi"
 	workflowpb "github.com/nmartinpunchh/banshee/pb/punchh/workflow"
-	workflowapipb "github.com/nmartinpunchh/banshee/pb/punchh/workflowapi"
 )
 
 // GrpcHandler represents the grpc service
@@ -28,8 +27,6 @@ func (s *GrpcHandler) CreateWorkflow(ctx context.Context, req *workflowapipb.Cre
 	}
 	log.Println(pstr)
 	w := &models.Workflow{}
-
-	err = mapper.M.SourceTag
 
 	// w := &models.Workflow{
 	// 	Root: &models.Statement{
