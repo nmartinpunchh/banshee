@@ -9,7 +9,7 @@ import (
 	"github.com/nmartinpunchh/banshee/configs"
 	"github.com/nmartinpunchh/banshee/internal/handler"
 	"github.com/nmartinpunchh/banshee/internal/repository"
-	workflowapipb "github.com/nmartinpunchh/banshee/pb/punchh/workflowapi"
+	workflowapipb "github.com/nmartinpunchh/banshee/pb/punchh/journeyapi"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 )
@@ -39,7 +39,7 @@ func Run() error {
 			grpc_logrus.UnaryServerInterceptor(logEntry),
 		),
 	)
-	workflowapipb.RegisterWorkflowAPIServer(s, grpcHandler)
+	workflowapipb.RegisterJourneyAPIServer(s, grpcHandler)
 	return s.Serve(lis)
 
 }

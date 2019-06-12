@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"errors"
 
 	log "github.com/sirupsen/logrus"
 
@@ -86,4 +87,20 @@ func (s *GrpcHandler) DeleteWorkflow(ctx context.Context, req *workflowapipb.Del
 	}
 	return dwr, nil
 
+}
+
+// CreateJourney ..
+func (s *GrpcHandler) CreateJourney(ctx context.Context, req *workflowapipb.CreateJourneyRequest) (*workflowapipb.CreateWorkflowResponse, error) {
+	return nil, errors.New("Not implemented")
+}
+
+// ReadJourney ..
+func (s *GrpcHandler) ReadJourney(ctx context.Context, req *workflowapipb.ReadJourneyRequest) (*workflowapipb.ReadJourneyResponse, error) {
+	return nil, errors.New("Not implemented")
+}
+
+// DeleteJourney ..
+func (s *GrpcHandler) DeleteJourney(ctx context.Context, req *workflowapipb.DeleteJourneyRequest) (*workflowapipb.DeleteJourneyResponse, error) {
+
+	return nil, errors.New("Not implemented")
 }
