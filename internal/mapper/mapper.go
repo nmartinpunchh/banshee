@@ -2,6 +2,7 @@ package mapper
 
 import (
 	"reflect"
+	"time"
 
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
@@ -18,13 +19,15 @@ var journeyMapper = mapper.Mapper{
 
 // JourneyPbToModel maps journeypb to a model
 func JourneyPbToModel(jpb *journeypb.Journey) *models.Journey {
-	journeyMapper.CustomMappers = []mapper.CustomFieldMapper{pbstatus2mStatus}
+	journeyMapper.CustomMappers = []mapper.CustomFieldMapper{TimestampToTime}
 	journeyMapper.FieldNameMaps = map[string]string{
 		"SegmentID": "SegmentId",
 		"SegmentId": "SegmentID",
 	}
 
-	journeyMapper.IgnoreDestFields = []string{"Status", "Model", "SegmentID", "Workflow"}
+	//TODO: Create custom mapper for Status
+	//TODO: Remove Workflow from ignored fields when it has been tested
+	journeyMapper.IgnoreDestFields = []string{"Status", "Model", "Workflow"}
 	mJourney := &models.Journey{}
 	ret := journeyMapper.Map(jpb, mJourney)
 	if len(ret.Errors) > 0 {
@@ -36,7 +39,8 @@ func JourneyPbToModel(jpb *journeypb.Journey) *models.Journey {
 
 }
 
-func pbstatus2mStatus(sourceVal reflect.Value, sourceType reflect.Type, destVal reflect.Value, destType reflect.Type) (handled bool) {
+// TimestampToTime Converts a timestamp to a time
+func TimestampToTime(sourceVal reflect.Value, sourceType reflect.Type, destVal reflect.Value, destType reflect.Type) (handled bool) {
 	if destType.Kind() == reflect.Struct {
 		if sourceVal.Type().Name() == "Timestamp" && destVal.Type().Name() == "Time" {
 			if sourceType.Kind() == reflect.Struct {
@@ -47,6 +51,43 @@ func pbstatus2mStatus(sourceVal reflect.Value, sourceType reflect.Type, destVal 
 
 				}
 				destVal.Set(reflect.ValueOf(val))
+				return true
+			}
+		}
+	}
+	return false
+}
+
+// JourneyModelToPb maps journeypb to a model
+func JourneyModelToPb(mJourney *models.Journey) *journeypb.Journey {
+	journeyMapper.CustomMappers = []mapper.CustomFieldMapper{TimeToTimestamp}
+	journeyMapper.FieldNameMaps = map[string]string{
+		"SegmentID": "SegmentId",
+		"SegmentId": "SegmentID",
+	}
+
+	journeyMapper.IgnoreDestFields = []string{"Model", "Status", "Workflow", "XXX_NoUnkeyedLiteral", "XXX_unrecognized", "XXX_sizecache"}
+	pbJourney := &journeypb.Journey{}
+	ret := journeyMapper.Map(mJourney, pbJourney)
+	if len(ret.Errors) > 0 {
+		log.Println(ret.Errors)
+		return nil
+	}
+
+	return pbJourney
+
+}
+func TimeToTimestamp(sourceVal reflect.Value, sourceType reflect.Type, destVal reflect.Value, destType reflect.Type) (handled bool) {
+	if destType.Kind() == reflect.Struct {
+		if sourceVal.Type().Name() == "Time" && destVal.Type().Name() == "Timestamp" {
+			if sourceType.Kind() == reflect.Struct {
+				convertToIface := sourceVal.Interface().(time.Time)
+				val, err := ptypes.TimestampProto(convertToIface)
+				if err != nil {
+					return false
+
+				}
+				destVal.Set(reflect.ValueOf(*val))
 				return true
 			}
 		}
