@@ -19,6 +19,11 @@ var journeyMapper = mapper.Mapper{
 // JourneyPbToModel maps journeypb to a model
 func JourneyPbToModel(jpb *journeypb.Journey) *models.Journey {
 	journeyMapper.CustomMappers = []mapper.CustomFieldMapper{pbstatus2mStatus}
+	journeyMapper.FieldNameMaps = map[string]string{
+		"SegmentID": "SegmentId",
+		"SegmentId": "SegmentID",
+	}
+
 	journeyMapper.IgnoreDestFields = []string{"Status", "Model", "SegmentID", "Workflow"}
 	mJourney := &models.Journey{}
 	ret := journeyMapper.Map(jpb, mJourney)

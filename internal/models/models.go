@@ -65,7 +65,7 @@ type Journey struct {
 	SegmentID        string
 	ControlGroupSize int
 	GuestEntryLimit  int
-	Workflow         Workflow
+	Workflow         *Workflow
 }
 
 // Status ..
