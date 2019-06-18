@@ -8,7 +8,6 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	journey "github.com/nmartinpunchh/banshee/pb/punchh/journey"
-	workflow "github.com/nmartinpunchh/banshee/pb/punchh/workflow"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -26,246 +25,6 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// CreateWorkflowRequest represents a create workflow requests
-type CreateWorkflowRequest struct {
-	Workflow             *workflow.Workflow `protobuf:"bytes,1,opt,name=workflow,proto3" json:"workflow,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
-	XXX_unrecognized     []byte             `json:"-"`
-	XXX_sizecache        int32              `json:"-"`
-}
-
-func (m *CreateWorkflowRequest) Reset()         { *m = CreateWorkflowRequest{} }
-func (m *CreateWorkflowRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateWorkflowRequest) ProtoMessage()    {}
-func (*CreateWorkflowRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{0}
-}
-
-func (m *CreateWorkflowRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateWorkflowRequest.Unmarshal(m, b)
-}
-func (m *CreateWorkflowRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateWorkflowRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateWorkflowRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateWorkflowRequest.Merge(m, src)
-}
-func (m *CreateWorkflowRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateWorkflowRequest.Size(m)
-}
-func (m *CreateWorkflowRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateWorkflowRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateWorkflowRequest proto.InternalMessageInfo
-
-func (m *CreateWorkflowRequest) GetWorkflow() *workflow.Workflow {
-	if m != nil {
-		return m.Workflow
-	}
-	return nil
-}
-
-// CreateWorkflowResponse represents a response.
-type CreateWorkflowResponse struct {
-	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *CreateWorkflowResponse) Reset()         { *m = CreateWorkflowResponse{} }
-func (m *CreateWorkflowResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateWorkflowResponse) ProtoMessage()    {}
-func (*CreateWorkflowResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{1}
-}
-
-func (m *CreateWorkflowResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateWorkflowResponse.Unmarshal(m, b)
-}
-func (m *CreateWorkflowResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateWorkflowResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateWorkflowResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateWorkflowResponse.Merge(m, src)
-}
-func (m *CreateWorkflowResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateWorkflowResponse.Size(m)
-}
-func (m *CreateWorkflowResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateWorkflowResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateWorkflowResponse proto.InternalMessageInfo
-
-func (m *CreateWorkflowResponse) GetId() int64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-// ReadWorkflowRequest represents a read workflow requests
-type ReadWorkflowRequest struct {
-	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ReadWorkflowRequest) Reset()         { *m = ReadWorkflowRequest{} }
-func (m *ReadWorkflowRequest) String() string { return proto.CompactTextString(m) }
-func (*ReadWorkflowRequest) ProtoMessage()    {}
-func (*ReadWorkflowRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{2}
-}
-
-func (m *ReadWorkflowRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReadWorkflowRequest.Unmarshal(m, b)
-}
-func (m *ReadWorkflowRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReadWorkflowRequest.Marshal(b, m, deterministic)
-}
-func (m *ReadWorkflowRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReadWorkflowRequest.Merge(m, src)
-}
-func (m *ReadWorkflowRequest) XXX_Size() int {
-	return xxx_messageInfo_ReadWorkflowRequest.Size(m)
-}
-func (m *ReadWorkflowRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReadWorkflowRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ReadWorkflowRequest proto.InternalMessageInfo
-
-func (m *ReadWorkflowRequest) GetId() int64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-// ReadWorkflowResponse represents a response.
-type ReadWorkflowResponse struct {
-	Workflow             *workflow.Workflow `protobuf:"bytes,1,opt,name=workflow,proto3" json:"workflow,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
-	XXX_unrecognized     []byte             `json:"-"`
-	XXX_sizecache        int32              `json:"-"`
-}
-
-func (m *ReadWorkflowResponse) Reset()         { *m = ReadWorkflowResponse{} }
-func (m *ReadWorkflowResponse) String() string { return proto.CompactTextString(m) }
-func (*ReadWorkflowResponse) ProtoMessage()    {}
-func (*ReadWorkflowResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{3}
-}
-
-func (m *ReadWorkflowResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReadWorkflowResponse.Unmarshal(m, b)
-}
-func (m *ReadWorkflowResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReadWorkflowResponse.Marshal(b, m, deterministic)
-}
-func (m *ReadWorkflowResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReadWorkflowResponse.Merge(m, src)
-}
-func (m *ReadWorkflowResponse) XXX_Size() int {
-	return xxx_messageInfo_ReadWorkflowResponse.Size(m)
-}
-func (m *ReadWorkflowResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReadWorkflowResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ReadWorkflowResponse proto.InternalMessageInfo
-
-func (m *ReadWorkflowResponse) GetWorkflow() *workflow.Workflow {
-	if m != nil {
-		return m.Workflow
-	}
-	return nil
-}
-
-// DeleteWorkflowRequest represents a read workflow requests
-type DeleteWorkflowRequest struct {
-	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteWorkflowRequest) Reset()         { *m = DeleteWorkflowRequest{} }
-func (m *DeleteWorkflowRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteWorkflowRequest) ProtoMessage()    {}
-func (*DeleteWorkflowRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{4}
-}
-
-func (m *DeleteWorkflowRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteWorkflowRequest.Unmarshal(m, b)
-}
-func (m *DeleteWorkflowRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteWorkflowRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteWorkflowRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteWorkflowRequest.Merge(m, src)
-}
-func (m *DeleteWorkflowRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteWorkflowRequest.Size(m)
-}
-func (m *DeleteWorkflowRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteWorkflowRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteWorkflowRequest proto.InternalMessageInfo
-
-func (m *DeleteWorkflowRequest) GetId() int64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-// DeleteWorkflowResponse represents a response.
-type DeleteWorkflowResponse struct {
-	Id                   int64    `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteWorkflowResponse) Reset()         { *m = DeleteWorkflowResponse{} }
-func (m *DeleteWorkflowResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteWorkflowResponse) ProtoMessage()    {}
-func (*DeleteWorkflowResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{5}
-}
-
-func (m *DeleteWorkflowResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteWorkflowResponse.Unmarshal(m, b)
-}
-func (m *DeleteWorkflowResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteWorkflowResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteWorkflowResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteWorkflowResponse.Merge(m, src)
-}
-func (m *DeleteWorkflowResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteWorkflowResponse.Size(m)
-}
-func (m *DeleteWorkflowResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteWorkflowResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteWorkflowResponse proto.InternalMessageInfo
-
-func (m *DeleteWorkflowResponse) GetId() int64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
 // CreateJourneyRequest represents a create workflow requests
 type CreateJourneyRequest struct {
 	Journey              *journey.Journey `protobuf:"bytes,1,opt,name=journey,proto3" json:"journey,omitempty"`
@@ -278,7 +37,7 @@ func (m *CreateJourneyRequest) Reset()         { *m = CreateJourneyRequest{} }
 func (m *CreateJourneyRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateJourneyRequest) ProtoMessage()    {}
 func (*CreateJourneyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{6}
+	return fileDescriptor_da6ef01c2958796e, []int{0}
 }
 
 func (m *CreateJourneyRequest) XXX_Unmarshal(b []byte) error {
@@ -318,7 +77,7 @@ func (m *CreateJourneyResponse) Reset()         { *m = CreateJourneyResponse{} }
 func (m *CreateJourneyResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateJourneyResponse) ProtoMessage()    {}
 func (*CreateJourneyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{7}
+	return fileDescriptor_da6ef01c2958796e, []int{1}
 }
 
 func (m *CreateJourneyResponse) XXX_Unmarshal(b []byte) error {
@@ -358,7 +117,7 @@ func (m *ReadJourneyRequest) Reset()         { *m = ReadJourneyRequest{} }
 func (m *ReadJourneyRequest) String() string { return proto.CompactTextString(m) }
 func (*ReadJourneyRequest) ProtoMessage()    {}
 func (*ReadJourneyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{8}
+	return fileDescriptor_da6ef01c2958796e, []int{2}
 }
 
 func (m *ReadJourneyRequest) XXX_Unmarshal(b []byte) error {
@@ -398,7 +157,7 @@ func (m *ReadJourneyResponse) Reset()         { *m = ReadJourneyResponse{} }
 func (m *ReadJourneyResponse) String() string { return proto.CompactTextString(m) }
 func (*ReadJourneyResponse) ProtoMessage()    {}
 func (*ReadJourneyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{9}
+	return fileDescriptor_da6ef01c2958796e, []int{3}
 }
 
 func (m *ReadJourneyResponse) XXX_Unmarshal(b []byte) error {
@@ -438,7 +197,7 @@ func (m *DeleteJourneyRequest) Reset()         { *m = DeleteJourneyRequest{} }
 func (m *DeleteJourneyRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteJourneyRequest) ProtoMessage()    {}
 func (*DeleteJourneyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{10}
+	return fileDescriptor_da6ef01c2958796e, []int{4}
 }
 
 func (m *DeleteJourneyRequest) XXX_Unmarshal(b []byte) error {
@@ -478,7 +237,7 @@ func (m *DeleteJourneyResponse) Reset()         { *m = DeleteJourneyResponse{} }
 func (m *DeleteJourneyResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteJourneyResponse) ProtoMessage()    {}
 func (*DeleteJourneyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_da6ef01c2958796e, []int{11}
+	return fileDescriptor_da6ef01c2958796e, []int{5}
 }
 
 func (m *DeleteJourneyResponse) XXX_Unmarshal(b []byte) error {
@@ -507,12 +266,6 @@ func (m *DeleteJourneyResponse) GetId() int64 {
 }
 
 func init() {
-	proto.RegisterType((*CreateWorkflowRequest)(nil), "journeyapi.CreateWorkflowRequest")
-	proto.RegisterType((*CreateWorkflowResponse)(nil), "journeyapi.CreateWorkflowResponse")
-	proto.RegisterType((*ReadWorkflowRequest)(nil), "journeyapi.ReadWorkflowRequest")
-	proto.RegisterType((*ReadWorkflowResponse)(nil), "journeyapi.ReadWorkflowResponse")
-	proto.RegisterType((*DeleteWorkflowRequest)(nil), "journeyapi.DeleteWorkflowRequest")
-	proto.RegisterType((*DeleteWorkflowResponse)(nil), "journeyapi.DeleteWorkflowResponse")
 	proto.RegisterType((*CreateJourneyRequest)(nil), "journeyapi.CreateJourneyRequest")
 	proto.RegisterType((*CreateJourneyResponse)(nil), "journeyapi.CreateJourneyResponse")
 	proto.RegisterType((*ReadJourneyRequest)(nil), "journeyapi.ReadJourneyRequest")
@@ -526,31 +279,23 @@ func init() {
 }
 
 var fileDescriptor_da6ef01c2958796e = []byte{
-	// 376 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x94, 0x5d, 0x4b, 0xc3, 0x30,
-	0x14, 0x86, 0xd9, 0x14, 0x95, 0xb3, 0x59, 0x24, 0x6e, 0x43, 0x82, 0xec, 0xa3, 0x7e, 0x0d, 0x2f,
-	0x22, 0xcc, 0x5f, 0xb0, 0x29, 0x8a, 0x5e, 0x88, 0x0e, 0x61, 0xe0, 0x8d, 0x74, 0x2e, 0xb2, 0xea,
-	0x68, 0x62, 0x3f, 0x18, 0xfe, 0x08, 0xff, 0xb3, 0x6c, 0x49, 0xda, 0x26, 0x6b, 0x3b, 0x76, 0xb5,
-	0xb0, 0x3c, 0x79, 0xcf, 0x7b, 0xce, 0x79, 0x29, 0x9c, 0xf0, 0xc8, 0xfb, 0x98, 0x4e, 0xaf, 0xbe,
-	0x58, 0xe4, 0x7b, 0xf4, 0xd7, 0xe1, 0xae, 0x3a, 0xbe, 0x3b, 0xdc, 0x25, 0xdc, 0x67, 0x21, 0x43,
-	0x90, 0xdc, 0xe2, 0x63, 0xfd, 0x81, 0xfa, 0x15, 0x24, 0x6e, 0xca, 0xdb, 0x39, 0xf3, 0xbf, 0x3f,
-	0x67, 0x6c, 0x1e, 0x1f, 0xc4, 0xbd, 0x7d, 0x0f, 0xf5, 0x1b, 0x9f, 0x3a, 0x21, 0x1d, 0xc9, 0xff,
-	0x87, 0xf4, 0x27, 0xa2, 0x41, 0x88, 0x08, 0xec, 0x29, 0xf4, 0xa8, 0xd4, 0x2e, 0x75, 0x2b, 0x3d,
-	0x44, 0xe2, 0xb7, 0x31, 0x1c, 0x33, 0x76, 0x17, 0x1a, 0xa6, 0x50, 0xc0, 0x99, 0x17, 0x50, 0x64,
-	0x41, 0xd9, 0x9d, 0x2c, 0x35, 0xb6, 0x86, 0x65, 0x77, 0x62, 0x9f, 0xc1, 0xe1, 0x90, 0x3a, 0x13,
-	0xb3, 0xa0, 0x89, 0xdd, 0x41, 0x4d, 0xc7, 0xa4, 0xdc, 0xa6, 0xc6, 0x2e, 0xa0, 0x7e, 0x4b, 0x67,
-	0x74, 0xb5, 0x43, 0xb3, 0x60, 0x17, 0x1a, 0x26, 0x98, 0xd3, 0xc1, 0x00, 0x6a, 0xa2, 0xd7, 0x47,
-	0x31, 0x6b, 0xa5, 0x78, 0x09, 0xbb, 0x72, 0xfa, 0xd2, 0xd9, 0x01, 0x51, 0xdb, 0x50, 0xa4, 0x02,
-	0x16, 0xb6, 0x0c, 0x8d, 0x9c, 0x62, 0xa7, 0x80, 0x16, 0x73, 0x30, 0x4a, 0x99, 0x54, 0x5f, 0x0c,
-	0xd5, 0x14, 0xdb, 0xc4, 0xd1, 0x39, 0xd4, 0x44, 0xff, 0x6b, 0x4a, 0xc5, 0x03, 0x5d, 0xe3, 0xbc,
-	0xf7, 0xb7, 0x0d, 0x20, 0x99, 0xfe, 0xf3, 0x03, 0x1a, 0x81, 0xa5, 0x27, 0x04, 0x75, 0x48, 0x92,
-	0x63, 0x92, 0x19, 0x43, 0x6c, 0x17, 0x21, 0xb2, 0xee, 0x0b, 0x54, 0xd3, 0x49, 0x41, 0xad, 0xf4,
-	0x9b, 0x8c, 0xa8, 0xe1, 0x76, 0x3e, 0x20, 0x25, 0x47, 0x60, 0xe9, 0x59, 0xd0, 0xbd, 0x66, 0x06,
-	0x4a, 0xf7, 0x9a, 0x13, 0xa5, 0x57, 0xd8, 0xd7, 0xd6, 0x8e, 0xda, 0xab, 0x0d, 0xea, 0xf3, 0xc7,
-	0x9d, 0x02, 0x42, 0xaa, 0x3e, 0x41, 0x25, 0xb5, 0x7d, 0xd4, 0x34, 0xfb, 0x33, 0x14, 0x5b, 0xb9,
-	0xf7, 0x89, 0x4b, 0x6d, 0xc5, 0xba, 0xcb, 0xac, 0x94, 0xe0, 0x4e, 0x01, 0x21, 0x54, 0x07, 0xd6,
-	0x5b, 0x35, 0x61, 0xf8, 0x78, 0xbc, 0xb3, 0xfc, 0x04, 0x5d, 0xff, 0x07, 0x00, 0x00, 0xff, 0xff,
-	0x69, 0x66, 0x7b, 0x36, 0xf3, 0x04, 0x00, 0x00,
+	// 253 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x2e, 0x28, 0xcd, 0x4b,
+	0xce, 0xc8, 0xd0, 0xcf, 0xca, 0x2f, 0x2d, 0xca, 0x4b, 0xad, 0x4c, 0x2c, 0xc8, 0x84, 0x31, 0xe3,
+	0x13, 0x0b, 0x32, 0xf5, 0x0a, 0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0xb8, 0x10, 0xb2, 0x52, 0x32, 0xa8,
+	0x1a, 0x60, 0x34, 0x44, 0xa5, 0x92, 0x13, 0x97, 0x88, 0x73, 0x51, 0x6a, 0x62, 0x49, 0xaa, 0x17,
+	0x44, 0x38, 0x28, 0xb5, 0xb0, 0x34, 0xb5, 0xb8, 0x44, 0x48, 0x8b, 0x8b, 0x1d, 0xaa, 0x50, 0x82,
+	0x51, 0x81, 0x51, 0x83, 0xdb, 0x48, 0x40, 0x0f, 0xa6, 0x11, 0xa6, 0x12, 0xa6, 0x40, 0x49, 0x9d,
+	0x4b, 0x14, 0xcd, 0x8c, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0x21, 0x3e, 0x2e, 0xa6, 0xcc, 0x14,
+	0xb0, 0x7e, 0xe6, 0x20, 0xa6, 0xcc, 0x14, 0x25, 0x15, 0x2e, 0xa1, 0xa0, 0xd4, 0xc4, 0x14, 0x34,
+	0xab, 0xd0, 0x55, 0x39, 0x72, 0x09, 0xa3, 0xa8, 0x82, 0x1a, 0x46, 0x8a, 0x8b, 0xd4, 0xb8, 0x44,
+	0x5c, 0x52, 0x73, 0x52, 0x31, 0x7c, 0x85, 0x6e, 0x95, 0x3a, 0x97, 0x28, 0x9a, 0x3a, 0xec, 0x2e,
+	0x37, 0xea, 0x60, 0xe2, 0xe2, 0x82, 0xaa, 0x71, 0x0c, 0xf0, 0x14, 0x0a, 0xe1, 0xe2, 0x45, 0xf1,
+	0xb1, 0x90, 0x82, 0x1e, 0x22, 0xc4, 0xf5, 0xb0, 0x05, 0xa8, 0x94, 0x22, 0x1e, 0x15, 0x50, 0x4b,
+	0xfd, 0xb8, 0xb8, 0x91, 0x3c, 0x2e, 0x24, 0x87, 0xac, 0x03, 0x33, 0xdc, 0xa4, 0xe4, 0x71, 0xca,
+	0x43, 0xcd, 0x0b, 0xe1, 0xe2, 0x45, 0xf1, 0x1d, 0xaa, 0x2b, 0xb1, 0x05, 0x10, 0xaa, 0x2b, 0xb1,
+	0x06, 0x8d, 0x13, 0x5f, 0x14, 0x0f, 0x42, 0x4d, 0x41, 0x52, 0x12, 0x1b, 0x38, 0x21, 0x19, 0x03,
+	0x02, 0x00, 0x00, 0xff, 0xff, 0xd7, 0xae, 0xb5, 0xdf, 0x99, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -565,12 +310,6 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type JourneyAPIClient interface {
-	// CreateWorkflow ...
-	CreateWorkflow(ctx context.Context, in *CreateWorkflowRequest, opts ...grpc.CallOption) (*CreateWorkflowResponse, error)
-	// ReadWorkflow ...
-	ReadWorkflow(ctx context.Context, in *ReadWorkflowRequest, opts ...grpc.CallOption) (*ReadWorkflowResponse, error)
-	// DeleteWorkflow ...
-	DeleteWorkflow(ctx context.Context, in *DeleteWorkflowRequest, opts ...grpc.CallOption) (*DeleteWorkflowResponse, error)
 	// CreateJourney ...
 	CreateJourney(ctx context.Context, in *CreateJourneyRequest, opts ...grpc.CallOption) (*CreateJourneyResponse, error)
 	// ReadJourney ...
@@ -585,33 +324,6 @@ type journeyAPIClient struct {
 
 func NewJourneyAPIClient(cc *grpc.ClientConn) JourneyAPIClient {
 	return &journeyAPIClient{cc}
-}
-
-func (c *journeyAPIClient) CreateWorkflow(ctx context.Context, in *CreateWorkflowRequest, opts ...grpc.CallOption) (*CreateWorkflowResponse, error) {
-	out := new(CreateWorkflowResponse)
-	err := c.cc.Invoke(ctx, "/journeyapi.JourneyAPI/CreateWorkflow", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *journeyAPIClient) ReadWorkflow(ctx context.Context, in *ReadWorkflowRequest, opts ...grpc.CallOption) (*ReadWorkflowResponse, error) {
-	out := new(ReadWorkflowResponse)
-	err := c.cc.Invoke(ctx, "/journeyapi.JourneyAPI/ReadWorkflow", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *journeyAPIClient) DeleteWorkflow(ctx context.Context, in *DeleteWorkflowRequest, opts ...grpc.CallOption) (*DeleteWorkflowResponse, error) {
-	out := new(DeleteWorkflowResponse)
-	err := c.cc.Invoke(ctx, "/journeyapi.JourneyAPI/DeleteWorkflow", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *journeyAPIClient) CreateJourney(ctx context.Context, in *CreateJourneyRequest, opts ...grpc.CallOption) (*CreateJourneyResponse, error) {
@@ -643,12 +355,6 @@ func (c *journeyAPIClient) DeleteJourney(ctx context.Context, in *DeleteJourneyR
 
 // JourneyAPIServer is the server API for JourneyAPI service.
 type JourneyAPIServer interface {
-	// CreateWorkflow ...
-	CreateWorkflow(context.Context, *CreateWorkflowRequest) (*CreateWorkflowResponse, error)
-	// ReadWorkflow ...
-	ReadWorkflow(context.Context, *ReadWorkflowRequest) (*ReadWorkflowResponse, error)
-	// DeleteWorkflow ...
-	DeleteWorkflow(context.Context, *DeleteWorkflowRequest) (*DeleteWorkflowResponse, error)
 	// CreateJourney ...
 	CreateJourney(context.Context, *CreateJourneyRequest) (*CreateJourneyResponse, error)
 	// ReadJourney ...
@@ -661,15 +367,6 @@ type JourneyAPIServer interface {
 type UnimplementedJourneyAPIServer struct {
 }
 
-func (*UnimplementedJourneyAPIServer) CreateWorkflow(ctx context.Context, req *CreateWorkflowRequest) (*CreateWorkflowResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateWorkflow not implemented")
-}
-func (*UnimplementedJourneyAPIServer) ReadWorkflow(ctx context.Context, req *ReadWorkflowRequest) (*ReadWorkflowResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReadWorkflow not implemented")
-}
-func (*UnimplementedJourneyAPIServer) DeleteWorkflow(ctx context.Context, req *DeleteWorkflowRequest) (*DeleteWorkflowResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteWorkflow not implemented")
-}
 func (*UnimplementedJourneyAPIServer) CreateJourney(ctx context.Context, req *CreateJourneyRequest) (*CreateJourneyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateJourney not implemented")
 }
@@ -682,60 +379,6 @@ func (*UnimplementedJourneyAPIServer) DeleteJourney(ctx context.Context, req *De
 
 func RegisterJourneyAPIServer(s *grpc.Server, srv JourneyAPIServer) {
 	s.RegisterService(&_JourneyAPI_serviceDesc, srv)
-}
-
-func _JourneyAPI_CreateWorkflow_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateWorkflowRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(JourneyAPIServer).CreateWorkflow(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/journeyapi.JourneyAPI/CreateWorkflow",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(JourneyAPIServer).CreateWorkflow(ctx, req.(*CreateWorkflowRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _JourneyAPI_ReadWorkflow_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReadWorkflowRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(JourneyAPIServer).ReadWorkflow(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/journeyapi.JourneyAPI/ReadWorkflow",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(JourneyAPIServer).ReadWorkflow(ctx, req.(*ReadWorkflowRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _JourneyAPI_DeleteWorkflow_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteWorkflowRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(JourneyAPIServer).DeleteWorkflow(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/journeyapi.JourneyAPI/DeleteWorkflow",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(JourneyAPIServer).DeleteWorkflow(ctx, req.(*DeleteWorkflowRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _JourneyAPI_CreateJourney_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -796,18 +439,6 @@ var _JourneyAPI_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "journeyapi.JourneyAPI",
 	HandlerType: (*JourneyAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "CreateWorkflow",
-			Handler:    _JourneyAPI_CreateWorkflow_Handler,
-		},
-		{
-			MethodName: "ReadWorkflow",
-			Handler:    _JourneyAPI_ReadWorkflow_Handler,
-		},
-		{
-			MethodName: "DeleteWorkflow",
-			Handler:    _JourneyAPI_DeleteWorkflow_Handler,
-		},
 		{
 			MethodName: "CreateJourney",
 			Handler:    _JourneyAPI_CreateJourney_Handler,
