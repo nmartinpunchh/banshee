@@ -23,7 +23,7 @@ func JourneyPbToModel(jpb *journeypb.Journey) *models.Journey {
 
 	//TODO: Create custom mapper for Status
 	// Must ignore the gorm foreign key as they are not part of the proto definition.
-	journeyMapper.IgnoreDestFields = []string{"Status", "Model", "ArgumentID", "SegmentID", "ActivityInvocationID", "StatementID", "WorkflowID", "JourneyID"}
+	journeyMapper.IgnoreDestFields = []string{"Status", "Model", "ArgumentID", "SegmentID", "ActivityInvocationID", "StatementID", "WorkflowID", "JourneyID", "Arguments"}
 	mJourney := &models.Journey{}
 	ret := journeyMapper.Map(jpb, mJourney)
 	if len(ret.Errors) > 0 {
@@ -46,6 +46,20 @@ func TimestampToTime(sourceVal reflect.Value, sourceType reflect.Type, destVal r
 					return false
 
 				}
+				destVal.Set(reflect.ValueOf(val))
+				return true
+			}
+		}
+	}
+	return false
+}
+
+// ArgumentsToList
+func ArgumentsToList(sourceVal reflect.Value, sourceType reflect.Type, destVal reflect.Value, destType reflect.Type) (handled bool) {
+	if destType.Kind() == reflect.Struct {
+		if sourceVal.Type().Name() == "Arguments" && destVal.Type().Name() == "Arguments" {
+			if sourceType.Kind() == reflect.Struct {
+				convertToIface := sourceVal.Interface().(models.Argument)
 				destVal.Set(reflect.ValueOf(val))
 				return true
 			}
