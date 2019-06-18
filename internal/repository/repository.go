@@ -13,45 +13,45 @@ import (
 
 // IRepository ..
 type IRepository interface {
-	GetAll() ([]*models.Workflow, error)
-	Create(model *models.Workflow) (*models.Workflow, error)
-	GetByID(id int) (*models.Workflow, error)
+	GetAll() ([]*models.Journey, error)
+	Create(model *models.Journey) (*models.Journey, error)
+	GetByID(id int) (*models.Journey, error)
 	Delete(id int) (int, error)
 }
 
-// WorkflowRepository ..
-type WorkflowRepository struct {
+// JourneyRepository ..
+type JourneyRepository struct {
 	Env *configs.Env
 	Db  *gorm.DB
 }
 
 // GetAll gets all
-func (h *WorkflowRepository) GetAll() ([]*models.Workflow, error) {
-	var workflows []*models.Workflow
-	if err := h.Db.Find(&workflows).Error; err != nil {
+func (h *JourneyRepository) GetAll() ([]*models.Journey, error) {
+	var journeys []*models.Journey
+	if err := h.Db.Find(&journeys).Error; err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	return workflows, nil
+	return journeys, nil
 
 }
 
-// GetByID gets a workflow by ID
-func (h *WorkflowRepository) GetByID(id int) (*models.Workflow, error) {
-	workflow := &models.Workflow{}
+// GetByID gets a journey by ID
+func (h *JourneyRepository) GetByID(id int) (*models.Journey, error) {
+	journey := &models.Journey{}
 	log.Println(id)
-	if err := h.Db.Set("gorm:auto_preload", true).First(&workflow, id).Error; err != nil {
+	if err := h.Db.Set("gorm:auto_preload", true).First(&journey, id).Error; err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	return workflow, nil
+	return journey, nil
 
 }
 
-// Create creates a workflow
-func (h *WorkflowRepository) Create(model *models.Workflow) (*models.Workflow, error) {
+// Create creates a journey
+func (h *JourneyRepository) Create(model *models.Journey) (*models.Journey, error) {
 	if err := h.Db.Create(&model).Error; err != nil {
 		log.Println(err)
 		return nil, err
@@ -61,9 +61,9 @@ func (h *WorkflowRepository) Create(model *models.Workflow) (*models.Workflow, e
 
 }
 
-// Delete deletes a workflow
-func (h *WorkflowRepository) Delete(id int) (int, error) {
-	model := models.Workflow{}
+// Delete deletes a journey
+func (h *JourneyRepository) Delete(id int) (int, error) {
+	model := models.Journey{}
 	if err := h.Db.Delete(&model, id).Error; err != nil {
 		log.Println(err)
 		return 0, err
@@ -74,7 +74,7 @@ func (h *WorkflowRepository) Delete(id int) (int, error) {
 }
 
 // Init initializes the db and auto migrates the models
-func Init(e *configs.Env) *WorkflowRepository {
+func Init(e *configs.Env) *JourneyRepository {
 	// log.Println(e.DbConnectionString)
 	db, err := gorm.Open("mysql", e.DbConnectionString)
 	db.LogMode(true)
@@ -84,9 +84,9 @@ func Init(e *configs.Env) *WorkflowRepository {
 	}
 
 	// Migrate the schema
-	db.AutoMigrate(&models.Statement{}, &models.Sequence{}, &models.Parallel{}, &models.ActivityInvocation{}, &models.Workflow{}, &models.Argument{}, &models.Journey{})
+	db.AutoMigrate(&models.Statement{}, &models.Sequence{}, &models.Parallel{}, &models.ActivityInvocation{}, &models.Journey{}, &models.Argument{}, &models.Journey{})
 
-	hr := &WorkflowRepository{
+	hr := &JourneyRepository{
 		Env: e,
 		Db:  db,
 	}

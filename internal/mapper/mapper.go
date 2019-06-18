@@ -20,14 +20,10 @@ var journeyMapper = mapper.Mapper{
 // JourneyPbToModel maps journeypb to a model
 func JourneyPbToModel(jpb *journeypb.Journey) *models.Journey {
 	journeyMapper.CustomMappers = []mapper.CustomFieldMapper{TimestampToTime}
-	journeyMapper.FieldNameMaps = map[string]string{
-		"SegmentID": "SegmentId",
-		"SegmentId": "SegmentID",
-	}
 
 	//TODO: Create custom mapper for Status
-	//TODO: Remove Workflow from ignored fields when it has been tested
-	journeyMapper.IgnoreDestFields = []string{"Status", "Model", "Workflow"}
+	// Must ignore the gorm foreign key as they are not part of the proto definition.
+	journeyMapper.IgnoreDestFields = []string{"Status", "Model", "ArgumentID", "SegmentID", "ActivityInvocationID", "StatementID", "WorkflowID", "JourneyID"}
 	mJourney := &models.Journey{}
 	ret := journeyMapper.Map(jpb, mJourney)
 	if len(ret.Errors) > 0 {
@@ -66,7 +62,8 @@ func JourneyModelToPb(mJourney *models.Journey) *journeypb.Journey {
 		"SegmentId": "SegmentID",
 	}
 
-	journeyMapper.IgnoreDestFields = []string{"Model", "Status", "Workflow", "XXX_NoUnkeyedLiteral", "XXX_unrecognized", "XXX_sizecache"}
+	//TODO: Create custom mapper for Status
+	journeyMapper.IgnoreDestFields = []string{"Model", "Status", "XXX_NoUnkeyedLiteral", "XXX_unrecognized", "XXX_sizecache"}
 	pbJourney := &journeypb.Journey{}
 	ret := journeyMapper.Map(mJourney, pbJourney)
 	if len(ret.Errors) > 0 {
@@ -77,6 +74,8 @@ func JourneyModelToPb(mJourney *models.Journey) *journeypb.Journey {
 	return pbJourney
 
 }
+
+// TimeToTimestamp convert a time to timestamp
 func TimeToTimestamp(sourceVal reflect.Value, sourceType reflect.Type, destVal reflect.Value, destType reflect.Type) (handled bool) {
 	if destType.Kind() == reflect.Struct {
 		if sourceVal.Type().Name() == "Time" && destVal.Type().Name() == "Timestamp" {
